@@ -18,12 +18,12 @@
 </p>
 
 <p align="left">
-  <a href="#" alt="Linkedin" target="_blank">
+  <a href="https://www.linkedin.com/in/ronierison-maciel-813a225b/" alt="Linkedin" target="_blank">
   <img src="https://img.shields.io/twitter/url?label=Linkedin&logo=Linkedin&url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fronierison-maciel-813a225b%2F"/></a>
 
-  <a href="#" alt="Twitter" target="_blank">
+  <a href="https://twitter.com/ronimaciell" alt="Twitter" target="_blank">
   <img src="https://img.shields.io/twitter/url?label=Twitter&logo=Twitter&url=https%3A%2F%2Ftwitter.com%2Fronimaciell"/></a>
 
-  <a href="#" alt="Instagram" target="_blank">
+  <a href="https://instagram.com/ronierison.maciel" alt="Instagram" target="_blank">
   <img src="https://img.shields.io/twitter/url?label=Instagram&logo=Instagram&url=https%3A%2F%2Finstagram.com%2Fronierison.maciel"/></a>
 </p>  
