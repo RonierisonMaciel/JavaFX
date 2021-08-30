@@ -18,7 +18,7 @@
 </p>
 
 <p align="left">
-  <a hrefhttps://www.linkedin.com/in/ronierison-maciel-813a225b/" alt="Linkedin">
+  <a href=https://www.linkedin.com/in/ronierison-maciel-813a225b/" alt="Linkedin">
   <img src="https://img.shields.io/badge/-Linkedin-0e76a8?style=flat-square&logo=Linkedin&logoColor=white&link=LINK-DO-SEU-LINKEDIN" /></a>
 
   <a href="#" alt="WhatsApp">
