@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -20,7 +21,23 @@ public class ViewController implements Initializable {
 	@FXML
 	private ComboBox<Person> comboBoxPerson;
 
+	@FXML
+	private Button btAll;
+
 	private ObservableList<Person> obsList;
+
+	@FXML
+	public void onBtAction() {
+		for (Person person : comboBoxPerson.getItems()) {
+			System.out.println(person);
+		}
+	}
+
+	@FXML
+	public void onComboBoxPersonAction() {
+		Person person = comboBoxPerson.getSelectionModel().getSelectedItem();
+		System.out.println(person);
+	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -32,7 +49,7 @@ public class ViewController implements Initializable {
 		obsList = FXCollections.observableArrayList(list);
 		comboBoxPerson.setItems(obsList);
 
-		//métodos responsável pela customização dos nomes no combobox
+		// métodos responsável pela customização dos nomes no combobox
 		Callback<ListView<Person>, ListCell<Person>> factory = lv -> new ListCell<Person>() {
 			@Override
 			protected void updateItem(Person item, boolean empty) {
