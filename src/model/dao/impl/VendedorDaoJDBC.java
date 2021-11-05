@@ -68,7 +68,7 @@ public class VendedorDaoJDBC implements VendedorDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE seller "
-					+ "SET Name = ?, Email = ?, DtNasc = ?, SalarioBase = ?, DepartamentoId = ? "
+					+ "SET Nome = ?, Email = ?, DtNasc = ?, SalarioBase = ?, DepartamentoId = ? "
 					+ "WHERE Id = ?");
 			
 			st.setString(1, obj.getNome());
@@ -112,7 +112,7 @@ public class VendedorDaoJDBC implements VendedorDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT vendedor.*,departamento.Nome as DepName "
+					"SELECT vendedor.*,departamento.Nome as DepNome "
 					+ "FROM vendedor INNER JOIN departamento "
 					+ "ON vendedor.DepartamentoId = departamento.Id "
 					+ "WHERE vendedor.Id = ?");
@@ -138,7 +138,7 @@ public class VendedorDaoJDBC implements VendedorDao {
 	private Vendedor instantiateVendedor(ResultSet rs, Departamento dep) throws SQLException {
 		Vendedor obj = new Vendedor();
 		obj.setId(rs.getInt("Id"));
-		obj.setNome(rs.getString("Name"));
+		obj.setNome(rs.getString("Nome"));
 		obj.setEmail(rs.getString("Email"));
 		obj.setSalarioBase(rs.getDouble("SalarioBase"));
 		obj.setDtNasc(rs.getDate("DtNasc"));
