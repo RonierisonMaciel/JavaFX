@@ -1,48 +1,63 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
+import gui.util.Alerts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Departamento;
 import model.services.DepartamentoService;
 
-public class DepartamentoListController implements Initializable{
-	
+public class DepartamentoListController implements Initializable, DataChangeListener {
+
+	// 1 - cria o service do DepartamentoSerice
 	private DepartamentoService service;
 
 	@FXML
 	private TableView<Departamento> tableViewDepartamento;
-	
+
 	@FXML
 	private TableColumn<Departamento, Integer> tableColumnId;
-	
+
 	@FXML
 	private TableColumn<Departamento, Integer> tableColumnName;
-	
+
 	@FXML
 	private Button btNovo;
-	
+
+	// 3 - cria o ObservableList do departamento
 	private ObservableList<Departamento> obsList;
-	
-	public void onBtNewAction() {
-		System.out.println("Ok...ok");
+
+	@FXML
+	public void onBtNewAction(ActionEvent event) {
+		Departamento obj = new Departamento();
+		Stage parentStage = gui.util.Utils.currentStage(event);
+		createDialogForm(obj, "/gui/DepartamentoForm.fxml", parentStage);
 	}
-	
+
+	// 2 - cria o método setando o DepartamentoService
 	public void setDepartamentoServie(DepartamentoService service) {
 		this.service = service;
 	}
-	
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
@@ -51,18 +66,49 @@ public class DepartamentoListController implements Initializable{
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		
+
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewDepartamento.prefHeightProperty().bind(stage.heightProperty());
 	}
-	
+
+	// 4 - métodos responsável por carregar os objetos na tela. Em seguida
+	// carregamos a tela.
 	public void updateTableView() {
 		if (service == null) {
-			throw new IllegalStateException("Serviço nulo");
+			throw new IllegalStateException("Serviço null");
 		}
 		List<Departamento> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewDepartamento.setItems(obsList);
 	}
 
+	private void createDialogForm(Departamento obj, String absoluteName, Stage parentStage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			Pane pane = loader.load();
+
+			DepartamentoFormController controller = loader.getController();
+			controller.setDepartamento(obj);
+			controller.setDepartamentoService(new DepartamentoService());
+			controller.subscribeDataChangeListers(this);
+			controller.updateFormData();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Entre com o nome do departamento");
+			dialogStage.setScene(new Scene(pane));
+			dialogStage.setResizable(false);
+			dialogStage.initOwner(parentStage);
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.showAndWait();
+
+		} catch (IOException e) {
+			Alerts.showAlert("IO Exception", "Error ao abrir", e.getMessage(), AlertType.ERROR);
+		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+		
+	}
 }

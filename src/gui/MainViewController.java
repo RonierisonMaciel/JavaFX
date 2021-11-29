@@ -73,5 +73,7 @@ public class MainViewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	// podemos criar um loadview2 ou refatorar para esse código;
 
 }
