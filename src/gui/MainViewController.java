@@ -10,13 +10,14 @@ import gui.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.services.DepartamentoService;
+import model.services.VendedorService;
 
 public class MainViewController implements Initializable {
 
@@ -29,7 +30,10 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemVendedorAction() {
-		System.out.println("onMenuItemVendedorAction");
+		loadView("/gui/VendedorList.fxml", (VendedorListController controller) -> {
+			controller.setVendedorServie(new VendedorService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
