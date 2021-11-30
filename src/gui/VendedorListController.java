@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -48,6 +49,15 @@ public class VendedorListController implements Initializable, DataChangeListener
 	private TableColumn<Vendedor, Integer> tableColumnName;
 
 	@FXML
+	private TableColumn<Vendedor, Integer> tableColumnEmail;
+
+	@FXML
+	private TableColumn<Vendedor, Date> tableColumnDtNasc;
+
+	@FXML
+	private TableColumn<Vendedor, Double> tableColumnSalarioBase;
+
+	@FXML
 	private TableColumn<Vendedor, Vendedor> tableColumnEDIT;
 
 	@FXML
@@ -79,6 +89,11 @@ public class VendedorListController implements Initializable, DataChangeListener
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+		tableColumnDtNasc.setCellValueFactory(new PropertyValueFactory<>("dtNasc"));
+		Utils.formatTableColumnDate(tableColumnDtNasc, "dd/MM/yyyy");
+		tableColumnSalarioBase.setCellValueFactory(new PropertyValueFactory<>("salarioBase"));
+		Utils.formatTableColumnDouble(tableColumnSalarioBase, 2);
 
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewVendedor.prefHeightProperty().bind(stage.heightProperty());
@@ -142,8 +157,7 @@ public class VendedorListController implements Initializable, DataChangeListener
 				}
 
 				setGraphic(button);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/VendedorForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/VendedorForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
