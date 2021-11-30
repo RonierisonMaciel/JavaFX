@@ -117,14 +117,14 @@ public class VendedorListController implements Initializable, DataChangeListener
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
-//			VendedorFormController controller = loader.getController();
-//			controller.setVendedor(obj);
-//			controller.setVendedorService(new VendedorService());
-//			controller.subscribeDataChangeListers(this);
-//			controller.updateFormData();
+			VendedorFormController controller = loader.getController();
+			controller.setVendedor(obj);
+			controller.setVendedorService(new VendedorService());
+			controller.subscribeDataChangeListers(this);
+			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Entre com o nome do departamento");
+			dialogStage.setTitle("Entre com o nome do vendedor");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
